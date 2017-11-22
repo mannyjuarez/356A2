@@ -1,6 +1,8 @@
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Date;
 
 /*
  * This class implements the user interface. This is designed to create an 
@@ -12,8 +14,9 @@ import java.util.ArrayList;
  */
 public class SingleUser implements User {
 
+    private long lastUpdateTime;
     private static int userCounter = 0;
-
+    private long creationTime;
     private String id = null;
     private List<User> usersFollowing; // the list of users being followed by
     // this user
@@ -28,8 +31,17 @@ public class SingleUser implements User {
         followedBy = new ArrayList<User>();
         newsFeed = new ArrayList<String>();
         ++userCounter;
+        creationTime = System.currentTimeMillis();
     }
 
+    public long getLastUpdateTime()
+    {
+        return lastUpdateTime;
+    }
+    public long getCreationTime()
+    {
+        return creationTime;
+    }
     public String toString() {
         return this.id;
     }
@@ -38,7 +50,7 @@ public class SingleUser implements User {
     public void addToNewsFeed(String message) {
 
         this.newsFeed.add(message);
-
+        lastUpdateTime =  System.currentTimeMillis();
     }
 
     public void addFollowing(User user) {

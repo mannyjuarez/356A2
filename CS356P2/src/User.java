@@ -12,7 +12,11 @@ import java.util.List;
  * @author mannyjuarez
  */
 public interface User {
-
+                
+        public long getLastUpdateTime();
+        
+        public long getCreationTime();
+        
 	public String toString();
 
 	public String getId();

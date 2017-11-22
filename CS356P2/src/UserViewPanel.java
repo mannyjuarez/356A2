@@ -4,7 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -27,11 +29,17 @@ public class UserViewPanel implements Observable, Observer {
     private JTextField tfUserId;
     private JTextField tfTweetMessage;
 
+    private Date resultDate;
+    SimpleDateFormat sdf;
     private User thisUser;
     private JButton btnPostTweet;
     private JButton btnFollowUser;
 
     private JLabel lMessage;
+    private JLabel creation;
+    private JLabel lastUpdate;
+    private String time;
+    private String update;
 
     private static List<User> users = new ArrayList<User>();
 
@@ -56,9 +64,14 @@ public class UserViewPanel implements Observable, Observer {
         this.thisUser = user;
         System.out.println(thisUser.getNewsFeed());
         makeFrame();
-        initialize();
         frame.setVisible(true);
-
+        
+        //takes the creation time, formats it, then prints to console
+        System.out.println(user.getCreationTime());
+        sdf = new SimpleDateFormat("MMM dd,yyyy HH:mm");    
+        resultDate = new Date(user.getCreationTime());
+        time = sdf.format(resultDate);
+        initialize();
     }
 
     private void makeFrame() {
@@ -76,6 +89,15 @@ public class UserViewPanel implements Observable, Observer {
         lblNewsFeed = new JLabel("News Feed");
         lblNewsFeed.setBounds(10, 245, 160, 13);
         frame.getContentPane().add(lblNewsFeed);
+        
+        lastUpdate = new JLabel("Last Update: ");
+        lastUpdate.setBounds(10, 385, 250, 13);
+        frame.getContentPane().add(lastUpdate);
+        
+        
+        creation = new JLabel("Creation: " + time);
+        creation.setBounds(10, 485, 250, 13);
+        frame.getContentPane().add(creation);
 
         lblCurrentFollowing = new JLabel("Current Following");
         lblCurrentFollowing.setBounds(10, 52, 160, 13);
@@ -247,6 +269,11 @@ public class UserViewPanel implements Observable, Observer {
             lMessage.setText("Please enter a message");
         } else if (!tweet.equals("")) {
             thisUser.addToNewsFeed(thisUser.toString() + ": " + tweet);
+            sdf = new SimpleDateFormat("MMM dd,yyyy HH:mm");
+            resultDate = new Date(thisUser.getLastUpdateTime());
+            time = sdf.format(resultDate);
+            update = sdf.format(resultDate);
+            lastUpdate.setText("Last Update: " +update);
             update(thisUser);
             tfTweetMessage.setText("");
             updateFollowers(tweet);

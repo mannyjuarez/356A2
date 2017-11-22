@@ -11,6 +11,8 @@ import java.util.ArrayList;
  */
 public class UserGroup implements User {
 
+    public long lastUpdateTime;
+    public long creationTime;
     private String id = "";
     private ArrayList<User> usersInGroup;
     private ArrayList<User> groupsInGroup;
@@ -21,8 +23,19 @@ public class UserGroup implements User {
         usersInGroup = new ArrayList<User>();
         groupsInGroup = new ArrayList<User>();
         ++groupCounter;
+        creationTime = System.currentTimeMillis();
     }
 
+    public long getLastUpdateTime()
+    {
+        return lastUpdateTime;
+    }
+    
+    public long getCreationTime()
+    {
+        return creationTime;
+    }
+    
     public void add(User user) {
         usersInGroup.add(user);
     }

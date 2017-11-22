@@ -30,7 +30,7 @@ public class AdminControlPanel extends JPanel {
     private static AdminControlPanel instance = null;
 
     private static final long serialVersionUID = 1L;
-
+    private long time;
     private List<User> users;
     private List<User> groups;
 
@@ -47,6 +47,7 @@ public class AdminControlPanel extends JPanel {
     private JButton btnOpenUserView;
     private JButton btnUserTotal;
     private JButton btnGroupTotal;
+    private JButton verify;
 
     private JTree tree;
 
@@ -119,6 +120,11 @@ public class AdminControlPanel extends JPanel {
         btnAddUser = new JButton("Add User");
         btnAddUser.setFont(new Font("Times New Roman", Font.PLAIN, 18));
         btnAddUser.setBounds(600, 11, 170, 40);
+        
+        verify = new JButton("Verify Validity");
+        verify.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+        verify.setBounds(600, 164, 170, 40);
+        frame.getContentPane().add(verify);
 
         btnAddGroup = new JButton("Add Group");
         btnAddGroup.setFont(new Font("Times New Roman", Font.PLAIN, 18));
@@ -153,6 +159,19 @@ public class AdminControlPanel extends JPanel {
         });
         frame.getContentPane().add(btnAddGroup);
 
+        verify.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+               if (tfUserID.getText() == null)
+               {
+                    addGroups();
+               }
+               else 
+               {
+                   addUsers();
+               }
+            }
+        });
+        
         btnOpenUserView.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
