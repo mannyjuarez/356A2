@@ -48,6 +48,8 @@ public class AdminControlPanel extends JPanel {
     private JButton btnUserTotal;
     private JButton btnGroupTotal;
     private JButton verify;
+    private JButton lastUser;
+    private JLabel last;
 
     private JTree tree;
 
@@ -91,6 +93,11 @@ public class AdminControlPanel extends JPanel {
         lMessage.setForeground(Color.RED);
         lMessage.setBounds(425, 218, 316, 14);
         frame.getContentPane().add(lMessage);
+        
+        last = new JLabel("");
+        last.setForeground(Color.RED);
+        last.setBounds(425, 300, 316, 14);
+        frame.getContentPane().add(last);
 
         /* Text Fields */
         tfUserID = new JTextField("");
@@ -125,6 +132,11 @@ public class AdminControlPanel extends JPanel {
         verify.setFont(new Font("Times New Roman", Font.PLAIN, 18));
         verify.setBounds(600, 164, 170, 40);
         frame.getContentPane().add(verify);
+        
+        lastUser = new JButton("Last Updated User");
+        lastUser.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+        lastUser.setBounds(425, 164, 170, 40);
+        frame.getContentPane().add(lastUser);
 
         btnAddGroup = new JButton("Add Group");
         btnAddGroup.setFont(new Font("Times New Roman", Font.PLAIN, 18));
@@ -169,6 +181,21 @@ public class AdminControlPanel extends JPanel {
                {
                    addUsers();
                }
+            }
+        });
+        
+        lastUser.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String id = "";
+                long latest = 0;
+                for (int i = 0; i < users.size(); i++)
+                {
+                    if (latest < users.get(i).getLastUpdateTime())
+                    {
+                        id = users.get(i).getId();
+                    }
+                }
+                last.setText("Last User Updated: " + id);
             }
         });
         
