@@ -62,12 +62,10 @@ public class UserViewPanel implements Observable, Observer {
     private UserViewPanel(User user) {
 
         this.thisUser = user;
-        System.out.println(thisUser.getNewsFeed());
         makeFrame();
         frame.setVisible(true);
         
         //takes the creation time, formats it, then prints to console
-        System.out.println(user.getCreationTime());
         sdf = new SimpleDateFormat("MMM dd,yyyy HH:mm");    
         resultDate = new Date(user.getCreationTime());
         time = sdf.format(resultDate);
@@ -207,12 +205,9 @@ public class UserViewPanel implements Observable, Observer {
 
         List<User> followers = new ArrayList<User>();
 
-        System.out.println(thisUser.toString() + "'s followers: "
-                + thisUser.getFollower());
-
+   
         for (int i = 0; i < thisUser.getFollower().size(); ++i) {
             followers.add(thisUser.getFollower().get(i));
-            System.out.println(thisUser + " followers: " + followers.get(i));
         }
 
         for (int i = 0; i < followers.size(); ++i) {
